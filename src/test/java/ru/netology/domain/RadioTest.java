@@ -1,134 +1,51 @@
 package ru.netology.domain;
-
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public class RadioTest {
-    Radio radio = new Radio(15);
-
+import static org.junit.jupiter.api.Assertions.*;
+class RadioTest {
+    Radio radio = new Radio();
     @Test
-    public void setCurrentStation() {
-        int expected = 14;
-        radio.setCurrentStation(expected);
-        assertEquals(expected, radio.getCurrentStation());
+    public void validateRadioWaveOverPossible() {
+        radio.setCurrentRadioWave(18);
+        assertEquals(0, radio.getCurrentRadioWave());
+    }
+    @Test
+    public void validateRadioWaveLessPossible() {
+        radio.setCurrentRadioWave(-1);
+        assertEquals(9, radio.getCurrentRadioWave());
+    }
+    @Test
+    public void currentRadioWaveUp() {
+        radio.setCurrentRadioWave(9);
+        assertEquals(0, radio.currentRadioWaveUp());
+    }
+    @Test
+    public void currentRadioWaveDown() {
+        radio.setCurrentRadioWave(0);
+        assertEquals(9, radio.currentRadioWaveDown());
     }
 
     @Test
-    public void setCurrentStationOutLimit() {
-        radio.setCurrentStation(15);
-        assertEquals(0, radio.getCurrentStation());
+    public void validateChangeSoundLevelOverPossible() {
+        radio.setCurrentSoundLevel(15);
+        assertEquals(10, radio.getCurrentSoundLevel());
     }
 
     @Test
-    public void setCurrentVolume() {
-        int expected = 90;
-        radio.setCurrentVolume(expected);
-        assertEquals(expected, radio.getCurrentVolume());
+    public void validateChangeSoundLevelUnderPossible() {
+        radio.setCurrentSoundLevel(-8);
+        assertEquals(0, radio.getCurrentSoundLevel());
     }
 
     @Test
-    public void setCurrentVolumeOutLimit() {
-        radio.setCurrentVolume(110);
-        assertEquals(0, radio.getCurrentVolume());
+    public void currentSoundLevelUp() {
+        radio.setCurrentSoundLevel(10);
+        assertEquals(10, radio.currentSoundLevelUp());
     }
 
     @Test
-    public void shouldNextStationInLimit() {
-        radio.setCurrentStation(13);
-        int currentStation = radio.nextStation();
-        radio.setCurrentStation(currentStation);
-        assertEquals(14, radio.getCurrentStation());
+    public void currentSoundLevelDown() {
+        radio.setCurrentSoundLevel(0);
+        assertEquals(0, radio.currentSoundLevelDown());
     }
 
-    @Test
-    public void shouldPrevStationInLimit() {
-        radio.setCurrentStation(10);
-        int currentStation = radio.prevStation();
-        radio.setCurrentStation(currentStation);
-        assertEquals(9, radio.getCurrentStation());
-    }
-
-    @Test
-    public void shouldNextStationMax() {
-        radio.setCurrentStation(14);
-        int currentStation = radio.nextStation();
-        radio.setCurrentStation(currentStation);
-        assertEquals(0, radio.getCurrentStation());
-    }
-
-    @Test
-    public void shouldPrevStationMin() {
-        radio.setCurrentStation(0);
-        int currentStation = radio.prevStation();
-        radio.setCurrentStation(currentStation);
-        assertEquals(14, radio.getCurrentStation());
-    }
-
-    @Test
-    public void shouldIncreaseVolumeInLimit() {
-        radio.setCurrentVolume(50);
-        int currentVolume = radio.increaseVolume();
-        radio.setCurrentVolume(currentVolume);
-        assertEquals(51, radio.getCurrentVolume());
-    }
-
-    @Test
-    public void shouldDecreaseVolumeInLimit() {
-        radio.setCurrentVolume(50);
-        int currentVolume = radio.decreaseVolume();
-        radio.setCurrentVolume(currentVolume);
-        assertEquals(49, radio.getCurrentVolume());
-    }
-
-    @Test
-    public void shouldIncreaseVolumeMax() {
-        radio.setCurrentVolume(100);
-        int currentVolume = radio.increaseVolume();
-        radio.setCurrentVolume(currentVolume);
-        assertEquals(100, radio.getCurrentVolume());
-    }
-
-    @Test
-    public void shouldDecreaseVolumeMin() {
-        radio.setCurrentVolume(0);
-        int currentVolume = radio.decreaseVolume();
-        radio.setCurrentVolume(currentVolume);
-        assertEquals(0, radio.getCurrentVolume());
-    }
-
-    @Test
-    public void shouldNextStationOutLimit() {
-        radio.setCurrentStation(16);
-        int currentStation = radio.nextStation();
-        radio.setCurrentStation(currentStation);
-        assertEquals(1, radio.getCurrentStation());
-    }
-
-    @Test
-    public void shouldPrevStationOutLimit() {
-        radio.setCurrentStation(-1);
-        int currentStation = radio.prevStation();
-        radio.setCurrentStation(currentStation);
-        assertEquals(14, radio.getCurrentStation());
-    }
-
-    @Test
-    public void shouldIncreaseVolumeOutLimit() {
-        Radio radio = new Radio(5, 0, 10,9);
-        radio.setCurrentVolume(110);
-        int currentVolume = radio.increaseVolume();
-        radio.setCurrentVolume(currentVolume);
-        assertEquals(1, radio.getCurrentVolume());
-    }
-
-    @Test
-    public void shouldDecreaseVolumeOutLimit() {
-        Radio radio;
-        radio = new Radio();
-        radio.setCurrentVolume(-1);
-        int currentVolume = radio.decreaseVolume();
-        radio.setCurrentVolume(currentVolume);
-        assertEquals(0, radio.getCurrentVolume());
-    }
 }
