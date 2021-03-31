@@ -106,4 +106,7 @@ public class Radio {
         }
         return currentVolume;
     }
+
+    public void setCurrentRadioWave(int i) {
+    }
 }
